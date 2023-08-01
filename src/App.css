@@ -8,10 +8,6 @@
 
 .contact-details {
   text-align: center;
-  /* width: 40%; */
   padding: 0 35%;
-}
-
-.contact-details:nth-child(2) {
-  font-size: larger;
+  position: relative;
 }
