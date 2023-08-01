@@ -9,9 +9,9 @@ const Header = () => {
     }
 
     return (
-        <nav class="navbar bg-primary">
-            <div class="container-fluid">
-                <span class="navbar-brand mb-0 ms-4 h1 text-light"><ImportContactsIcon style={styling} /> Contact Book</span>
+        <nav className="navbar bg-primary">
+            <div className="container-fluid">
+                <span className="navbar-brand mb-0 ms-4 h1 text-light"><ImportContactsIcon style={styling} /> Contact Book</span>
             </div>
         </nav>
     )
