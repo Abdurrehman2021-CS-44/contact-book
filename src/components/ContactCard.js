@@ -1,5 +1,6 @@
 import { useState } from "react";
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
 const ContactCard = (props) => {
     const [isMouseOver, setIsMouseOver] = useState(false);
@@ -12,15 +13,19 @@ const ContactCard = (props) => {
         setIsMouseOver(false);
     }
 
-    const handleClick = () => {
+    const handleDelete = () => {
         props.onDelete(props.id);
+    }
+
+    const handleEdit = () => {
+        props.onEdit(props.id);
     }
 
     return (
         <>
             <div className="card" onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave}>
                 <div className="card-body">
-                    <h4 className="card-title my-0" style={{position: "relative"}}>{props.fName} <DeleteIcon onClick={handleClick} className="text-primary" style={{position: "absolute", right: "5px", top: "3px"}} /></h4>
+                    <h4 className="card-title my-0" style={{position: "relative"}}>{props.fName} <EditIcon onClick={handleEdit} className="text-primary" style={{position: "absolute", right: "40px", top: "3px"}} /> <DeleteIcon onClick={handleDelete} className="text-primary" style={{position: "absolute", right: "5px", top: "3px"}} /></h4>
                     {
                         isMouseOver &&
                         <>

@@ -56,7 +56,6 @@ const ContactDetails = () => {
         } else {
             alert("Please enter all the details")
         }
-        console.log(contacts);
     }
 
     const deleteContact = (id) => {
@@ -64,6 +63,11 @@ const ContactDetails = () => {
         setContacts((preValue)=>{
             return [...remainingContacts];
         });
+    }
+
+    const editContact = (id) => {
+        const foundContact = contacts.filter((contact,index)=>index === id);
+        dispatch({type: "RESET_FIELDS", initializedContact: foundContact[0]})
     }
 
     return (
@@ -77,7 +81,7 @@ const ContactDetails = () => {
                     <InputField onClicked={dispatch} value={details.lName} name="lName" type="text" placeholder="Last Name" />
                     <InputField onClicked={dispatch} value={details.email} name="email" type="email" placeholder="Email" />
                     <InputField onClicked={dispatch} value={details.phoneNum} name="phoneNum" type="phone" placeholder="Phone" />
-                    <div class="mb-3">
+                    <div className="mb-3">
                         <textarea name="address" className="form-control" id="exampleFormControlTextarea1" rows="2" placeholder="Address" value={details.address} onChange={handleChange}></textarea>
                     </div>
                     <AddCircleIcon onClick={handleData} className="text-primary" style={{fontSize: "3rem", position: "absolute", bottom: "-27px", right: "455px"}} />
@@ -90,7 +94,7 @@ const ContactDetails = () => {
                 <div className="row mb-5">
                     {
                         contacts.map((contact,index)=>{
-                            return (<div className="col-lg-4 mt-3">
+                            return (<div className="col-lg-4 mt-3" key={index}>
                                 <ContactCard 
                                     key = {index}
                                     id = {index}
@@ -100,6 +104,7 @@ const ContactDetails = () => {
                                     phoneNum = {contact.phoneNum}
                                     address = {contact.address}
                                     onDelete = {deleteContact}
+                                    onEdit = {editContact}
                                 />
                             </div>)
                         })
