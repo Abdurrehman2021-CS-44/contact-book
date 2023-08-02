@@ -1,4 +1,5 @@
 import { useState } from "react";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const ContactCard = (props) => {
     const [isMouseOver, setIsMouseOver] = useState(false);
@@ -15,7 +16,7 @@ const ContactCard = (props) => {
         <>
             <div className="card" onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave}>
                 <div className="card-body">
-                    <h4 className="card-title my-0">{props.fName}</h4>
+                    <h4 className="card-title my-0" style={{position: "relative"}}>{props.fName} <DeleteIcon onClick={{handleClick}} style={{position: "absolute", right: "5px", top: "3px"}} /></h4>
                     {
                         isMouseOver &&
                         <>

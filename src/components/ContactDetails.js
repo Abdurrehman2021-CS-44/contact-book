@@ -23,8 +23,7 @@ const ContactDetails = () => {
     }
     const [details, dispatch] = useReducer(actionOnDetails, initialState);
     const [isClicked, setIsClicked] = useState(false);
-
-    const products = [];
+    const [contacts, setContacts] = useState([]);
 
     const handleChange = (event) => {
         const inputValue = event.target.value;
@@ -46,9 +45,13 @@ const ContactDetails = () => {
             }
         }
         if (!isAllFilled){
-            products.push(details);
+            setContacts((preValue)=>{
+                return [...preValue, details]
+            });
+        } else {
+            alert("Please enter all the details")
         }
-        console.log(products);
+        console.log(contacts);
     }
 
     return (
@@ -73,9 +76,20 @@ const ContactDetails = () => {
             </div>
             <div className="container">
                 <div className="row mb-5">
-                    <div className="col-lg-4 mt-3">
-                        <ContactCard />
-                    </div>
+                    {
+                        contacts.map((contact,index)=>{
+                            return (<div className="col-lg-4 mt-3">
+                                <ContactCard 
+                                    key={index}
+                                    fName = {contact.fName}
+                                    lName = {contact.lName}
+                                    email = {contact.email}
+                                    phoneNum = {contact.phoneNum}
+                                    address = {contact.address}
+                                />
+                            </div>)
+                        })
+                    }
                 </div>
             </div>
         </>
