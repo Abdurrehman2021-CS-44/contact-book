@@ -10,6 +10,10 @@ const actionOnDetails = (currentState, action) => {
                 ...currentState,
                 [action.field]: action.payload
             }
+        case "RESET_FIELDS":
+            return {
+                ...action.initializedContact
+            }
     }
 }
 
@@ -48,10 +52,18 @@ const ContactDetails = () => {
             setContacts((preValue)=>{
                 return [...preValue, details]
             });
+            dispatch({type: "RESET_FIELDS", initializedContact: initialState})
         } else {
             alert("Please enter all the details")
         }
         console.log(contacts);
+    }
+
+    const deleteContact = (id) => {
+        const remainingContacts = contacts.filter((contact,index)=>index !== id);
+        setContacts((preValue)=>{
+            return [...remainingContacts];
+        });
     }
 
     return (
@@ -66,7 +78,7 @@ const ContactDetails = () => {
                     <InputField onClicked={dispatch} value={details.email} name="email" type="email" placeholder="Email" />
                     <InputField onClicked={dispatch} value={details.phoneNum} name="phoneNum" type="phone" placeholder="Phone" />
                     <div class="mb-3">
-                        <textarea name="address" className="form-control" id="exampleFormControlTextarea1" rows="2" placeholder="Address" onChange={handleChange}></textarea>
+                        <textarea name="address" className="form-control" id="exampleFormControlTextarea1" rows="2" placeholder="Address" value={details.address} onChange={handleChange}></textarea>
                     </div>
                     <AddCircleIcon onClick={handleData} className="text-primary" style={{fontSize: "3rem", position: "absolute", bottom: "-27px", right: "455px"}} />
                 </>
@@ -80,12 +92,14 @@ const ContactDetails = () => {
                         contacts.map((contact,index)=>{
                             return (<div className="col-lg-4 mt-3">
                                 <ContactCard 
-                                    key={index}
+                                    key = {index}
+                                    id = {index}
                                     fName = {contact.fName}
                                     lName = {contact.lName}
                                     email = {contact.email}
                                     phoneNum = {contact.phoneNum}
                                     address = {contact.address}
+                                    onDelete = {deleteContact}
                                 />
                             </div>)
                         })

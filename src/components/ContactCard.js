@@ -12,11 +12,15 @@ const ContactCard = (props) => {
         setIsMouseOver(false);
     }
 
+    const handleClick = () => {
+        props.onDelete(props.id);
+    }
+
     return (
         <>
             <div className="card" onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave}>
                 <div className="card-body">
-                    <h4 className="card-title my-0" style={{position: "relative"}}>{props.fName} <DeleteIcon onClick={{handleClick}} style={{position: "absolute", right: "5px", top: "3px"}} /></h4>
+                    <h4 className="card-title my-0" style={{position: "relative"}}>{props.fName} <DeleteIcon onClick={handleClick} className="text-primary" style={{position: "absolute", right: "5px", top: "3px"}} /></h4>
                     {
                         isMouseOver &&
                         <>
