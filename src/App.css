@@ -15,4 +15,7 @@
 .card {
   text-align: left;
   transition: 0.4s;
+  position: relative;
+  overflow: hidden;
+  transition: 0.3s;
 }

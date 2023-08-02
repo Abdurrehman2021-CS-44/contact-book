@@ -24,15 +24,31 @@ const ContactDetails = () => {
     const [details, dispatch] = useReducer(actionOnDetails, initialState);
     const [isClicked, setIsClicked] = useState(false);
 
+    const products = [];
+
     const handleChange = (event) => {
         const inputValue = event.target.value;
         const inputName = event.target.name;
         dispatch({type: "UPDATE_CONTACT", payload: inputValue, field: inputName});
-        console.log(details);
     }
 
     const handleClick = () => {
         setIsClicked(true);
+    }
+
+    const handleData = () =>{
+        const fields = Object.keys(details);
+        let isAllFilled = false;
+        for(let i = 0; i < fields.length; i++){
+            if (details[fields[i]] === ""){
+                isAllFilled = true;
+                break;
+            }
+        }
+        if (!isAllFilled){
+            products.push(details);
+        }
+        console.log(products);
     }
 
     return (
@@ -49,7 +65,7 @@ const ContactDetails = () => {
                     <div class="mb-3">
                         <textarea name="address" className="form-control" id="exampleFormControlTextarea1" rows="2" placeholder="Address" onChange={handleChange}></textarea>
                     </div>
-                    <AddCircleIcon className="text-primary" style={{fontSize: "3rem", position: "absolute", bottom: "-27px", right: "455px"}} />
+                    <AddCircleIcon onClick={handleData} className="text-primary" style={{fontSize: "3rem", position: "absolute", bottom: "-27px", right: "455px"}} />
                 </>
                 :
                 <input type="text" className="form-control" placeholder="Enter details" onClick={handleClick} />
@@ -57,22 +73,7 @@ const ContactDetails = () => {
             </div>
             <div className="container">
                 <div className="row mb-5">
-                    <div className="col-4 mt-3">
-                        <ContactCard />
-                    </div>
-                    <div className="col-4 mt-3">
-                        <ContactCard />
-                    </div>
-                    <div className="col-4 mt-3">
-                        <ContactCard />
-                    </div>
-                    <div className="col-4 mt-3">
-                        <ContactCard />
-                    </div>
-                    <div className="col-4 mt-3">
-                        <ContactCard />
-                    </div>
-                    <div className="col-4 mt-3">
+                    <div className="col-lg-4 mt-3">
                         <ContactCard />
                     </div>
                 </div>
