@@ -56,7 +56,26 @@ const ContactDetails = () => {
             }
             </div>
             <div className="container">
-                <ContactCard />
+                <div className="row mb-5">
+                    <div className="col-4 mt-3">
+                        <ContactCard />
+                    </div>
+                    <div className="col-4 mt-3">
+                        <ContactCard />
+                    </div>
+                    <div className="col-4 mt-3">
+                        <ContactCard />
+                    </div>
+                    <div className="col-4 mt-3">
+                        <ContactCard />
+                    </div>
+                    <div className="col-4 mt-3">
+                        <ContactCard />
+                    </div>
+                    <div className="col-4 mt-3">
+                        <ContactCard />
+                    </div>
+                </div>
             </div>
         </>
     )
