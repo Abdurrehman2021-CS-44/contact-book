@@ -1,5 +1,6 @@
 import { useReducer, useState } from "react";
 import InputField from "./InputField";
+import ContactCard from "./ContactCard";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 const actionOnDetails = (currentState, action) => {
@@ -53,6 +54,9 @@ const ContactDetails = () => {
                 :
                 <input type="text" className="form-control" placeholder="Enter details" onClick={handleClick} />
             }
+            </div>
+            <div className="container">
+                <ContactCard />
             </div>
         </>
     )
