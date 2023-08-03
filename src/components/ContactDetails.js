@@ -28,6 +28,7 @@ const ContactDetails = () => {
     const [details, dispatch] = useReducer(actionOnDetails, initialState);
     const [isClicked, setIsClicked] = useState(false);
     const [contacts, setContacts] = useState([]);
+    const [edit, setEdit] = useState(-1);
 
     const handleChange = (event) => {
         const inputValue = event.target.value;
@@ -40,21 +41,31 @@ const ContactDetails = () => {
     }
 
     const handleData = () =>{
-        const fields = Object.keys(details);
-        let isAllFilled = false;
-        for(let i = 0; i < fields.length; i++){
-            if (details[fields[i]] === ""){
-                isAllFilled = true;
-                break;
+        if (edit === -1) {
+            const fields = Object.keys(details);
+            let isAllFilled = false;
+            for(let i = 0; i < fields.length; i++){
+                if (details[fields[i]] === ""){
+                    isAllFilled = true;
+                    break;
+                }
             }
-        }
-        if (!isAllFilled){
-            setContacts((preValue)=>{
-                return [...preValue, details]
-            });
-            dispatch({type: "RESET_FIELDS", initializedContact: initialState})
+            if (!isAllFilled){
+                setContacts((preValue)=>{
+                    return [...preValue, details]
+                });
+                dispatch({type: "RESET_FIELDS", initializedContact: initialState});
+                alert("Contact has been added");
+            } else {
+                alert("Please enter all the details")
+            }
         } else {
-            alert("Please enter all the details")
+            contacts[edit] = details;
+            setContacts(contacts);
+            console.log(contacts);
+            setEdit(-1);
+            dispatch({type: "RESET_FIELDS", initializedContact: initialState})
+            alert("Contact has been updated");
         }
     }
 
@@ -63,11 +74,13 @@ const ContactDetails = () => {
         setContacts((preValue)=>{
             return [...remainingContacts];
         });
+        alert("Contact has been deleted");
     }
 
     const editContact = (id) => {
         const foundContact = contacts.filter((contact,index)=>index === id);
         dispatch({type: "RESET_FIELDS", initializedContact: foundContact[0]})
+        setEdit(id);
     }
 
     return (
