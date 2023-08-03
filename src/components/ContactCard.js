@@ -25,7 +25,7 @@ const ContactCard = (props) => {
         <>
             <div className="card" onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave}>
                 <div className="card-body">
-                    <h4 className="card-title my-0" style={{position: "relative"}}>{props.fName} <EditIcon onClick={handleEdit} className="text-primary" style={{position: "absolute", right: "40px", top: "3px"}} /> <DeleteIcon onClick={handleDelete} className="text-primary" style={{position: "absolute", right: "5px", top: "3px"}} /></h4>
+                    <h4 className="card-title my-0" style={{position: "relative"}}>{props.fName} <EditIcon onClick={handleEdit} className="text-primary button" style={{position: "absolute", right: "40px", top: "3px"}} /> <DeleteIcon onClick={handleDelete} className="text-primary button" style={{position: "absolute", right: "5px", top: "3px"}} /></h4>
                     {
                         isMouseOver &&
                         <>

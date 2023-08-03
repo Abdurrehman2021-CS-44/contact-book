@@ -19,3 +19,7 @@
   overflow: hidden;
   transition: 0.3s;
 }
+
+.button:hover {
+  color: blue !important;
+}

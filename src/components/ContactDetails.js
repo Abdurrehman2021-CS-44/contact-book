@@ -42,22 +42,27 @@ const ContactDetails = () => {
 
     const handleData = () =>{
         if (edit === -1) {
-            const fields = Object.keys(details);
-            let isAllFilled = false;
-            for(let i = 0; i < fields.length; i++){
-                if (details[fields[i]] === ""){
-                    isAllFilled = true;
-                    break;
+            const isPresent = contacts.filter((contact)=>contact.phoneNum === details.phoneNum);
+            if (isPresent.length === 0){
+                const fields = Object.keys(details);
+                let isAllFilled = false;
+                for(let i = 0; i < fields.length; i++){
+                    if (details[fields[i]] === ""){
+                        isAllFilled = true;
+                        break;
+                    }
                 }
-            }
-            if (!isAllFilled){
-                setContacts((preValue)=>{
-                    return [...preValue, details]
-                });
-                dispatch({type: "RESET_FIELDS", initializedContact: initialState});
-                alert("Contact has been added");
+                if (!isAllFilled){
+                    setContacts((preValue)=>{
+                        return [...preValue, details]
+                    });
+                    dispatch({type: "RESET_FIELDS", initializedContact: initialState});
+                    alert("Contact has been added");
+                } else {
+                    alert("Please enter all the details")
+                }
             } else {
-                alert("Please enter all the details")
+                alert("Contact with this phone number is already available with the name \n'" + isPresent[0].fName + " " + isPresent[0].lName + "'");
             }
         } else {
             contacts[edit] = details;
@@ -97,7 +102,7 @@ const ContactDetails = () => {
                     <div className="mb-3">
                         <textarea name="address" className="form-control" id="exampleFormControlTextarea1" rows="2" placeholder="Address" value={details.address} onChange={handleChange}></textarea>
                     </div>
-                    <AddCircleIcon onClick={handleData} className="text-primary" style={{fontSize: "3rem", position: "absolute", bottom: "-27px", right: "455px"}} />
+                    <AddCircleIcon onClick={handleData} className="text-primary button" style={{fontSize: "3rem", position: "absolute", bottom: "-27px", right: "455px"}} />
                 </>
                 :
                 <input type="text" className="form-control" placeholder="Enter details" onClick={handleClick} />
