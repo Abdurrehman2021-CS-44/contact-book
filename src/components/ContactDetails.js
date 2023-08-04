@@ -58,9 +58,6 @@ const ContactDetails = () => {
                     }
                 }
                 if (!isAllFilled){
-                    setContacts((preValue)=>{
-                        return [...preValue, details]
-                    });
                     sendDataToServer();
                     alert("Contact has been added");
                 } else {
@@ -77,15 +74,6 @@ const ContactDetails = () => {
             dispatch({type: "RESET_FIELDS", initializedContact: initialState})
             alert("Contact has been updated");
         }
-    }
-
-    const deleteContact = (id) => {
-        const remainingContacts = contacts.filter((contact,index)=>index !== id);
-        setContacts((preValue)=>{
-            return [...remainingContacts];
-        });
-        deleteDataFromServer(id);
-        alert("Contact has been deleted");
     }
 
     const editContact = (id) => {
@@ -156,7 +144,7 @@ const ContactDetails = () => {
                                     email = {contact.email}
                                     phoneNum = {contact.phoneNum}
                                     address = {contact.address}
-                                    onDelete = {deleteContact}
+                                    onDelete = {deleteDataFromServer}
                                     onEdit = {editContact}
                                 />
                             </div>)
