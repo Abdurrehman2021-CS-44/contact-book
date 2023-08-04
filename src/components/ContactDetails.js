@@ -14,6 +14,10 @@ const actionOnDetails = (currentState, action) => {
             return {
                 ...action.initializedContact
             }
+        default:
+            return {
+                ...currentState
+            }
     }
 }
 
@@ -56,7 +60,7 @@ const ContactDetails = () => {
                     setContacts((preValue)=>{
                         return [...preValue, details]
                     });
-                    dispatch({type: "RESET_FIELDS", initializedContact: initialState});
+                    sendDataToServer();
                     alert("Contact has been added");
                 } else {
                     alert("Please enter all the details")
@@ -88,6 +92,17 @@ const ContactDetails = () => {
         setEdit(id);
     }
 
+    const sendDataToServer = async () => {
+        const response = await fetch("http://localhost:5000/contacts", {
+            method: "POST",
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(details),
+        })
+        const data = await response.json();
+        console.log(data);
+        dispatch({type: "RESET_FIELDS", initializedContact: initialState});
+    }
+
     return (
         <>
             <h1 className="display-6 my-2">Contact Details</h1>
@@ -112,7 +127,7 @@ const ContactDetails = () => {
                 <div className="row mb-5">
                     {
                         contacts.map((contact,index)=>{
-                            return (<div className="col-lg-4 mt-3" key={index}>
+                            return (<div className="col-lg-4 col-md-6 mt-3" key={index}>
                                 <ContactCard 
                                     key = {index}
                                     id = {index}
