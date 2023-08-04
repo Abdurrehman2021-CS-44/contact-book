@@ -29,6 +29,13 @@ const ContactDetails = () => {
         phoneNum: "",
         address:"",
     }
+
+    const getDataFromServer = async () => {
+        const response = await fetch("http://localhost:5000/contacts")
+        const data = await response.json();
+        setContacts(data.data);
+    }
+
     const [details, dispatch] = useReducer(actionOnDetails, initialState);
     const [isClicked, setIsClicked] = useState(false);
     const [contacts, setContacts] = useState([]);
@@ -102,6 +109,8 @@ const ContactDetails = () => {
         console.log(data);
         dispatch({type: "RESET_FIELDS", initializedContact: initialState});
     }
+
+    getDataFromServer();
 
     return (
         <>
