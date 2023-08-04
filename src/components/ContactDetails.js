@@ -30,12 +30,6 @@ const ContactDetails = () => {
         address:"",
     }
 
-    const getDataFromServer = async () => {
-        const response = await fetch("http://localhost:5000/contacts")
-        const data = await response.json();
-        setContacts(data.data);
-    }
-
     const [details, dispatch] = useReducer(actionOnDetails, initialState);
     const [isClicked, setIsClicked] = useState(false);
     const [contacts, setContacts] = useState([]);
@@ -90,6 +84,7 @@ const ContactDetails = () => {
         setContacts((preValue)=>{
             return [...remainingContacts];
         });
+        deleteDataFromServer(id);
         alert("Contact has been deleted");
     }
 
@@ -108,6 +103,22 @@ const ContactDetails = () => {
         const data = await response.json();
         console.log(data);
         dispatch({type: "RESET_FIELDS", initializedContact: initialState});
+    }
+
+    const getDataFromServer = async () => {
+        const response = await fetch("http://localhost:5000/contacts")
+        const data = await response.json();
+        setContacts(data.data);
+    }
+
+    const deleteDataFromServer = async (id) => {
+        const response = await fetch("http://localhost:5000/contacts",{
+            method:"DELETE",
+            headers:{'Content-Type':'application/json'},
+            body:JSON.stringify({id: contacts[id]._id})
+        })
+        const data = await response.json();
+        getDataFromServer();
     }
 
     getDataFromServer();
