@@ -60,6 +60,7 @@ const ContactDetails = () => {
                 if (!isAllFilled){
                     sendDataToServer();
                     alert("Contact has been added");
+                    getDataFromServer();
                 } else {
                     alert("Please enter all the details")
                 }
@@ -67,19 +68,16 @@ const ContactDetails = () => {
                 alert("Contact with this phone number is already available with the name \n'" + isPresent[0].fName + " " + isPresent[0].lName + "'");
             }
         } else {
-            contacts[edit] = details;
-            setContacts(contacts);
-            console.log(contacts);
+            editDataFromServer(edit);
             setEdit(-1);
-            dispatch({type: "RESET_FIELDS", initializedContact: initialState})
-            alert("Contact has been updated");
         }
     }
 
     const editContact = (id) => {
         const foundContact = contacts.filter((contact,index)=>index === id);
         dispatch({type: "RESET_FIELDS", initializedContact: foundContact[0]})
-        setEdit(id);
+        setEdit(contacts[id]._id);
+        setIsClicked(true);
     }
 
     const sendDataToServer = async () => {
@@ -109,7 +107,21 @@ const ContactDetails = () => {
         getDataFromServer();
     }
 
-    getDataFromServer();
+    const editDataFromServer = async (id) => {
+        const response = await fetch("http://localhost:5000/contacts", {
+            method:'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({id: id, update: details})
+        })
+        const data = await response.json();
+        console.log(data);
+        dispatch({type: "RESET_FIELDS", initializedContact: initialState});
+        getDataFromServer();
+    }
+
+    useState(()=>{
+        getDataFromServer();
+    }, [])
 
     return (
         <>
