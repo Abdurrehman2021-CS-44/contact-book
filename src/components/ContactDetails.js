@@ -61,7 +61,7 @@ const ContactDetails = () => {
                     alert("Contact has been added");
                     getDataFromServer();
                 } else {
-                    alert("Please enter all the details")
+                    alert("Please enter all the details.")
                 }
             } else {
                 alert("Contact with this phone number is already available with the name \n'" + isPresent[0].fName + " " + isPresent[0].lName + "'");
@@ -124,24 +124,52 @@ const ContactDetails = () => {
 
     return (
         <>
-            <h1 className="display-6 my-2">Contact Details</h1>
-            <div className="contact-details">
+            <h1 className="display-6 my-3">Contact Details</h1>
             {
                 isClicked ? 
                 <>
-                    <input name="fName" type="text" className="form-control border-bottom-0 rounded-0 rounded-top" placeholder="First Name" onChange={handleChange} value={details.fName}/>
-                    <input name="lName" type="text" className="form-control border-bottom-0 rounded-0" placeholder="Last Name" onChange={handleChange} value={details.lName}/>
-                    <input name="email" type="text" className="form-control border-bottom-0 rounded-0" placeholder="Email" onChange={handleChange} value={details.email}/>
-                    <input name="phoneNum" type="text" className="form-control border-bottom-0 rounded-0" placeholder="Phone Number" onChange={handleChange} value={details.phoneNum}/>
-                    <div className="mb-3">
-                        <textarea name="address" className="form-control rounded-0 rounded-bottom" rows="2" placeholder="Address" value={details.address} onChange={handleChange}></textarea>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-5 col-md-7 col-sm-9">
+                            <input name="fName" type="text" className="form-control border-bottom-0 rounded-0 rounded-top" placeholder="First Name" onChange={handleChange} value={details.fName}/>
+                        </div>
                     </div>
-                    <AddCircleIcon onClick={handleData} className="text-primary button" style={{fontSize: "3rem", position: "absolute", bottom: "-27px", right: "455px"}} />
+                    <div class="row justify-content-center">
+                        <div class="col-lg-5 col-md-7 col-sm-9">
+                            <input name="lName" type="text" className="form-control border-bottom-0 rounded-0" placeholder="Last Name" onChange={handleChange} value={details.lName}/>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-lg-5 col-md-7 col-sm-9">
+                            <input name="email" type="text" className="form-control border-bottom-0 rounded-0" placeholder="Email" onChange={handleChange} value={details.email}/>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-lg-5 col-md-7 col-sm-9">
+                            <input name="phoneNum" type="text" className="form-control border-bottom-0 rounded-0" placeholder="Phone Number" onChange={handleChange} value={details.phoneNum}/>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-lg-5 col-md-7 col-sm-9">
+                            <textarea name="address" className="form-control rounded-0 rounded-bottom" rows="2" placeholder="Address" value={details.address} onChange={handleChange}></textarea>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-lg-5 col-md-7 col-sm-9 add-button">
+                            <AddCircleIcon onClick={handleData} className="text-primary" style={{fontSize: "3rem"}} />
+                        </div>
+                    </div>
+                </div>
                 </>
                 :
-                <input type="text" className="form-control input" placeholder="Enter details" onClick={handleClick} />
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-5 col-md-7 col-sm-9">
+                            <input type="text" className="form-control input" placeholder="Enter details" onClick={handleClick} />
+                        </div>
+                    </div>
+                </div>
             }
-            </div>
             <div className="container">
                 <div className="row mb-5">
                     {
