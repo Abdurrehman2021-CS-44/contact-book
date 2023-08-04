@@ -1,5 +1,4 @@
 import { useReducer, useState } from "react";
-import InputField from "./InputField";
 import ContactCard from "./ContactCard";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 
@@ -87,7 +86,6 @@ const ContactDetails = () => {
             body: JSON.stringify(details),
         })
         const data = await response.json();
-        console.log(data);
         dispatch({type: "RESET_FIELDS", initializedContact: initialState});
     }
 
@@ -105,6 +103,7 @@ const ContactDetails = () => {
         })
         const data = await response.json();
         getDataFromServer();
+        alert(data.message);
     }
 
     const editDataFromServer = async (id) => {
@@ -114,9 +113,9 @@ const ContactDetails = () => {
             body: JSON.stringify({id: id, update: details})
         })
         const data = await response.json();
-        console.log(data);
         dispatch({type: "RESET_FIELDS", initializedContact: initialState});
         getDataFromServer();
+        alert(data.message);
     }
 
     useState(()=>{
@@ -130,17 +129,17 @@ const ContactDetails = () => {
             {
                 isClicked ? 
                 <>
-                    <InputField onClicked={dispatch} value={details.fName} name="fName" type="text" placeholder="First Name" />
-                    <InputField onClicked={dispatch} value={details.lName} name="lName" type="text" placeholder="Last Name" />
-                    <InputField onClicked={dispatch} value={details.email} name="email" type="email" placeholder="Email" />
-                    <InputField onClicked={dispatch} value={details.phoneNum} name="phoneNum" type="phone" placeholder="Phone" />
+                    <input name="fName" type="text" className="form-control border-bottom-0 rounded-0 rounded-top" placeholder="First Name" onChange={handleChange} value={details.fName}/>
+                    <input name="lName" type="text" className="form-control border-bottom-0 rounded-0" placeholder="Last Name" onChange={handleChange} value={details.lName}/>
+                    <input name="email" type="text" className="form-control border-bottom-0 rounded-0" placeholder="Email" onChange={handleChange} value={details.email}/>
+                    <input name="phoneNum" type="text" className="form-control border-bottom-0 rounded-0" placeholder="Phone Number" onChange={handleChange} value={details.phoneNum}/>
                     <div className="mb-3">
-                        <textarea name="address" className="form-control" id="exampleFormControlTextarea1" rows="2" placeholder="Address" value={details.address} onChange={handleChange}></textarea>
+                        <textarea name="address" className="form-control rounded-0 rounded-bottom" rows="2" placeholder="Address" value={details.address} onChange={handleChange}></textarea>
                     </div>
                     <AddCircleIcon onClick={handleData} className="text-primary button" style={{fontSize: "3rem", position: "absolute", bottom: "-27px", right: "455px"}} />
                 </>
                 :
-                <input type="text" className="form-control" placeholder="Enter details" onClick={handleClick} />
+                <input type="text" className="form-control input" placeholder="Enter details" onClick={handleClick} />
             }
             </div>
             <div className="container">
